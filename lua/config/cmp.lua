@@ -28,7 +28,20 @@ function deepest_root_pattern(patterns1, patterns2)
   end
 end
 
+vim.diagnostic.config({
+    virtual_text = true, -- Show warnings/errors inline with the code
+    signs = true,        -- Show signs in the gutter (left-hand side)
+    underline = true,    -- Underline warnings/errors
+    update_in_insert = false, -- Do not update diagnostics while typing
+})
+
+-- Define custom diagnostic signs (optional)
 cmp.setup({
+	snippet = {
+        expand = function(args)
+            -- Use a snippet engine like "luasnip" here
+        end,
+    },
 	window = {
       completion = cmp.config.window.bordered(),
       -- documentation = cmp.config.window.bordered(),
@@ -50,7 +63,16 @@ cmp.setup({
 local capabilities = cmp_nvim_lsp.default_capabilities()
   -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
 require('lspconfig')['clangd'].setup {
-  capabilities = capabilities
+  capabilities = capabilities,
+  on_attach = function(client, bufnr)
+        -- Enable diagnostics
+        vim.diagnostic.config({
+            virtual_text = true,
+            signs = true,
+            underline = true,
+            update_in_insert = false,
+        })
+    end,
 }
 require('lspconfig')['denols'].setup{
 	capabilities = capabilities,

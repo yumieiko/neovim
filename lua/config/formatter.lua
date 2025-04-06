@@ -11,6 +11,24 @@ require("formatter").setup {
   filetype = {
     -- Formatter configurations for filetype "lua" go here
     -- and will be executed in order
+    c = {
+                    function()
+                        return {
+                            exe = "clang-format",
+                            args = { "-i", "-style=file" },
+                            stdin = false,
+                        }
+                    end,
+                },
+                cpp = {
+                    function()
+                        return {
+                            exe = "clang-format",
+                            args = { "-i", "-style=file" },
+                            stdin = false,
+                        }
+                    end,
+                },
     lua = {
       -- "formatter.filetypes.lua" defines default configurations for the
       -- "lua" filetype
@@ -58,4 +76,3 @@ autocmd("BufWritePost", {
 	group = "__formatter__",
 	command = ":FormatWrite",
 })
-

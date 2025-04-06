@@ -5,4 +5,4 @@ require("config.statusline")
 require("config.formatter")
 require("config.default")
 require("config.keymaps")
-vim.cmd[[colorscheme tokyonight]]
+vim.cmd[[colorscheme catppuccin]]
